@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutores - Clínica Veterinária</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="header">
+        <div>
+            <strong>🐾 Clínica Veterinária</strong>
+            <a th:href="@{/}">Início</a>
+            <a th:href="@{/tutores}">Tutores</a>
+            <a th:href="@{/pets}">Pets</a>
+            <a th:href="@{/agendamentos}">Agendamentos</a>
+        </div>
+        <div class="usuario-info">
+            <span th:text="${usuarioNome != null ? 'Olá, ' + usuarioNome : (session != null && session.usuarioNome != null ? 'Olá, ' + session.usuarioNome : 'Olá')}"></span>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="btn btn-danger" style="padding:4px 10px;font-size:12px;">Sair</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Tutores</h2>
+
+        <div th:if="${sucesso}" class="mensagem-sucesso" th:text="${sucesso}"></div>
+        <div th:if="${erro}" class="mensagem-erro" th:text="${erro}"></div>
+
+        <form th:action="@{/tutores}" method="get" class="busca-form">
+            <input type="text" name="busca" th:value="${busca}" placeholder="Buscar por nome, e-mail ou telefone...">
+            <button type="submit" class="btn">Buscar</button>
+            <a th:href="@{/tutores}" class="btn btn-danger">Limpar</a>
+        </form>
+
+        <a th:href="@{/tutores/novo}" class="btn btn-success">+ Novo Tutor</a>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="tutor : ${tutores}">
+                    <td th:text="${tutor.id}"></td>
+                    <td th:text="${tutor.nome}"></td>
+                    <td th:text="${tutor.telefone}"></td>
+                    <td th:text="${tutor.email}"></td>
+                    <td>
+                        <a th:href="@{/tutores/{id}/editar(id=${tutor.id})}" class="btn">Editar</a>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(tutores)}">
+                    <td colspan="5" style="text-align:center;">Nenhum tutor encontrado.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

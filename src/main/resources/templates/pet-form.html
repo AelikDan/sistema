@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Pet - Clínica Veterinária</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="header">
+        <div>
+            <strong>🐾 Clínica Veterinária</strong>
+            <a th:href="@{/}">Início</a>
+            <a th:href="@{/tutores}">Tutores</a>
+            <a th:href="@{/pets}">Pets</a>
+            <a th:href="@{/agendamentos}">Agendamentos</a>
+        </div>
+        <div class="usuario-info">
+            <span th:text="${usuarioNome != null ? 'Olá, ' + usuarioNome : (session != null && session.usuarioNome != null ? 'Olá, ' + session.usuarioNome : 'Olá')}"></span>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="btn btn-danger" style="padding:4px 10px;font-size:12px;">Sair</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Cadastrar Novo Pet</h2>
+
+        <div th:if="${erro}" class="mensagem-erro" th:text="${erro}"></div>
+
+        <form th:action="@{/pets}" method="post">
+            <label>Tutor</label>
+            <select name="tutorId" required>
+                <option value="">Selecione um tutor...</option>
+                <option th:each="tutor : ${tutores}" th:value="${tutor.id}" th:text="${tutor.nome}"></option>
+            </select>
+
+            <label>Nome do Pet</label>
+            <input type="text" name="nome" required>
+
+            <label>Espécie</label>
+            <input type="text" name="especie" required placeholder="Ex: Canina, Felina">
+
+            <label>Raça</label>
+            <input type="text" name="raca" required>
+
+            <label>Data de Nascimento</label>
+            <input type="date" name="dataNascimento" required>
+
+            <button type="submit" class="btn btn-success" style="margin-top:15px;">Salvar</button>
+            <a th:href="@{/pets}" class="btn" style="margin-top:15px;">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

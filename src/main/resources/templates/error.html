@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ocorreu um erro - Clínica Veterinária</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="login-container" style="text-align: center; max-width: 600px;">
+        <h2>🐾 Clínica Veterinária</h2>
+        <h3 style="color: #e74c3c; margin-top: 15px;">Aviso do Sistema</h3>
+        
+        <div style="margin: 20px 0; padding: 15px; background: #fff3f3; border: 1px solid #ffcdd2; border-radius: 4px; text-align: left; font-size: 14px;">
+            <p th:if="${status}" style="margin: 5px 0;"><strong>Código HTTP:</strong> <span th:text="${status}"></span></p>
+            <p th:if="${error}" style="margin: 5px 0;"><strong>Erro:</strong> <span th:text="${error}"></span></p>
+            <p th:if="${message}" style="margin: 5px 0;"><strong>Mensagem:</strong> <span th:text="${message}"></span></p>
+            <p th:if="${path}" style="margin: 5px 0;"><strong>Rota acessada:</strong> <span th:text="${path}"></span></p>
+        </div>
+
+        <div style="display: flex; gap: 10px; justify-content: center;">
+            <a th:href="@{/}" class="btn" style="width: auto; padding: 10px 20px;">Ir para o Início</a>
+            <a th:href="@{/login}" class="btn btn-danger" style="width: auto; padding: 10px 20px;">Voltar ao Login</a>
+        </div>
+    </div>
+</body>
+</html>

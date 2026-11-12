@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Início - Clínica Veterinária</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="header">
+        <div>
+            <strong>🐾 Clínica Veterinária</strong>
+            <a th:href="@{/}">Início</a>
+            <a th:href="@{/tutores}">Tutores</a>
+            <a th:href="@{/pets}">Pets</a>
+            <a th:href="@{/agendamentos}">Agendamentos</a>
+        </div>
+        <div class="usuario-info">
+            <span th:text="${usuarioNome != null ? 'Olá, ' + usuarioNome : (session != null && session.usuarioNome != null ? 'Olá, ' + session.usuarioNome : 'Olá, Usuário')}"></span>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="btn btn-danger" style="padding:4px 10px;font-size:12px;">Sair</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Painel Principal</h2>
+
+        <div class="card-container">
+            <div class="card">
+                <h3>Tutores</h3>
+                <div class="numero" th:text="${contagens != null && contagens['tutores'] != null ? contagens['tutores'] : 0}">0</div>
+                <div style="margin-top:15px;">
+                    <a th:href="@{/tutores}" class="btn">Ver Tutores</a>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Pets</h3>
+                <div class="numero" th:text="${contagens != null && contagens['pets'] != null ? contagens['pets'] : 0}">0</div>
+                <div style="margin-top:15px;">
+                    <a th:href="@{/pets}" class="btn">Ver Pets</a>
+                </div>
+            </div>
+            <div class="card">
+                <h3>Agendamentos</h3>
+                <div class="numero" th:text="${contagens != null && contagens['agendamentos'] != null ? contagens['agendamentos'] : 0}">0</div>
+                <div style="margin-top:15px;">
+                    <a th:href="@{/agendamentos}" class="btn">Ver Agendamentos</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

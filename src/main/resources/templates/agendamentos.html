@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Agendamentos - Clínica Veterinária</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="header">
+        <div>
+            <strong>🐾 Clínica Veterinária</strong>
+            <a th:href="@{/}">Início</a>
+            <a th:href="@{/tutores}">Tutores</a>
+            <a th:href="@{/pets}">Pets</a>
+            <a th:href="@{/agendamentos}">Agendamentos</a>
+        </div>
+        <div class="usuario-info">
+            <span th:text="${usuarioNome != null ? 'Olá, ' + usuarioNome : (session != null && session.usuarioNome != null ? 'Olá, ' + session.usuarioNome : 'Olá')}"></span>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="btn btn-danger" style="padding:4px 10px;font-size:12px;">Sair</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Agendamentos</h2>
+
+        <div th:if="${sucesso}" class="mensagem-sucesso" th:text="${sucesso}"></div>
+        <div th:if="${erro}" class="mensagem-erro" th:text="${erro}"></div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Horário</th>
+                    <th>Serviço</th>
+                    <th>Status</th>
+                    <th>Tutor</th>
+                    <th>Telefone</th>
+                    <th>E-mail</th>
+                    <th>Pet</th>
+                    <th>Espécie</th>
+                    <th>Raça</th>
+                    <th>Observação</th>
+                    <th>Alterar Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="ag : ${agendamentos}">
+                    <td th:text="${ag.data}"></td>
+                    <td th:text="${ag.horario}"></td>
+                    <td th:text="${ag.servico}"></td>
+                    <td th:text="${ag.status}"></td>
+                    <td th:text="${ag.tutorNome}"></td>
+                    <td th:text="${ag.tutorTelefone}"></td>
+                    <td th:text="${ag.tutorEmail}"></td>
+                    <td th:text="${ag.petNome}"></td>
+                    <td th:text="${ag.petEspecie}"></td>
+                    <td th:text="${ag.petRaca}"></td>
+                    <td th:text="${ag.observacao}"></td>
+                    <td>
+                        <form th:action="@{/agendamentos/{id}(id=${ag.id})}" method="post" style="display:flex;gap:5px;">
+                            <input type="date" name="dataAgendamento" th:value="${ag.data}" required style="width:auto;">
+                            <button type="submit" class="btn" style="padding:4px 10px;">Salvar</button>
+                        </form>
+                    </td>
+                </tr>
+                <tr th:if="${#lists.isEmpty(agendamentos)}">
+                    <td colspan="12" style="text-align:center;">Nenhum agendamento encontrado.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Tutor - Clínica Veterinária</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="header">
+        <div>
+            <strong>🐾 Clínica Veterinária</strong>
+            <a th:href="@{/}">Início</a>
+            <a th:href="@{/tutores}">Tutores</a>
+            <a th:href="@{/pets}">Pets</a>
+            <a th:href="@{/agendamentos}">Agendamentos</a>
+        </div>
+        <div class="usuario-info">
+            <span th:text="${usuarioNome != null ? 'Olá, ' + usuarioNome : (session != null && session.usuarioNome != null ? 'Olá, ' + session.usuarioNome : 'Olá')}"></span>
+            <form th:action="@{/logout}" method="post" style="display:inline">
+                <button type="submit" class="btn btn-danger" style="padding:4px 10px;font-size:12px;">Sair</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="container">
+        <h2>Editar Tutor</h2>
+
+        <div th:if="${erro}" class="mensagem-erro" th:text="${erro}"></div>
+
+        <form th:action="@{/tutores/{id}(id=${tutor.id})}" method="post">
+            <label>Nome</label>
+            <input type="text" name="nome" th:value="${tutor.nome}" required>
+
+            <label>Telefone</label>
+            <input type="text" name="telefone" th:value="${tutor.telefone}" required>
+
+            <label>E-mail</label>
+            <input type="email" name="email" th:value="${tutor.email}" required>
+
+            <button type="submit" class="btn btn-success" style="margin-top:15px;">Salvar Alterações</button>
+            <a th:href="@{/tutores}" class="btn" style="margin-top:15px;">Cancelar</a>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Clínica Veterinária</title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="login-container">
+        <h2>🐾 Clínica Veterinária</h2>
+        <p style="text-align:center;color:#666;">Faça login para acessar o sistema</p>
+
+        <div th:if="${erro}" class="mensagem-erro" th:text="${erro}"></div>
+
+        <form th:action="@{/login}" method="post">
+            <label>E-mail</label>
+            <input type="email" name="email" th:value="${email}" required placeholder="seu@email.com">
+
+            <label>Senha</label>
+            <input type="password" name="senha" required placeholder="Sua senha">
+
+            <button type="submit" class="btn">Entrar</button>
+        </form>
+    </div>
+</body>
+</html>
